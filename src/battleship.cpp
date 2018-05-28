@@ -8,10 +8,6 @@ const int size = 10;
 enum {hor, vert};
 int** array = 0;
 
-// +. TODO add comments
-// +. TODO no need to have return.
-// +. TODO void create_array()
-
 /**
  *@brief Function creates a matrix.
  *@name Function "create_array()" 
@@ -20,12 +16,15 @@ int** array = 0;
  */
 void create_array()
 {
-  array = new int* [size];  
-  // TODO check that allocation succeed
-  // + TODO use same coging style ++i or i++ 
-  for(int i = 1 ; i <= size; ++i) {
-    array[i-1] = new int [size]; 
-    // TODO check that allocation succeed
+  try {
+    array = new int* [size];
+    for(int i = 1 ; i <= size; ++i) {
+      array[i-1] = new int [size]; 
+    }
+  } catch (std::bad_alloc&) {
+    throw;
+  } catch (...) {
+    throw;
   }
 }
 
@@ -37,7 +36,6 @@ void create_array()
  */
 void print()
 {
-  //TODO make sure that "array" exists before the use
   for(int i = 1; i <= size; ++i) {
     for(int j = 1; j <= size; ++j) {
       std::cout << array[i-1][j-1] << " ";
@@ -77,21 +75,14 @@ void create_sea()
 }
 
 /**
- *@brief Function sets a horizontal ship.
- *@name Function "add_horizontal()"
+ *@brief Function sets a ship.
+ *@name Function "append_ship()"
  *@param x is an integer number, the abscissa of the field.
  *@param y is an integer number, the ordinate of the field.
- *@param l is an integer number, the length of the ship.
+ *@param length is an integer number, the length of the ship.
+ *@param direction is an integer number 0 or 1, the direction of the ship.
  *@return void. Function doesn't returns value.
  */
-void add_horizontal(int x, int y, int l)
-{
-  for (int i = 1; i <= l; ++i) {
-    array[x][y + i - 1] = 1;
-  }
-}
-
-
 void append_ship(int x, int y, int length, int direction)
 {
   if (hor == direction) {
@@ -102,21 +93,6 @@ void append_ship(int x, int y, int length, int direction)
     for (int i = 1; i <= length; ++i) {
       array[x + i - 1][y] = 1;
     }
-  }
-}
-
-/**
- *@brief Function sets a vertical ship.
- *@name Function "add_vertical()"
- *@param x is an integer number, the abscissa of the field.
- *@param y is an integer number, the ordinate of the field.
- *@param l is an integer number, the length of the ship.
- *@return void. Function doesn't returns value.
- */
-void add_vertical(int x, int y, int l)
-{
-  for (int i = 1; i <= l; ++i) {
-    array[x + i - 1][y] = 1;
   }
 }
 
@@ -178,7 +154,8 @@ bool check_position(const int x, const int y)
  *@name Function "is_square_free()
  *@param x is an integer number, the abscissa of the field.
  *@param y is an integer number, the ordinate of the field.
-s_square_free *@return bool. Function returns a boolean value.
+s_square_free 
+ *@return bool. Function returns a boolean value.
  */
 bool is_square_free(int x, int y)
 {
@@ -190,7 +167,7 @@ bool is_square_free(int x, int y)
  *@name Function "is_ship()
  *@param x is an integer number, the abscissa of the field.
  *@param y is an integer number, the ordinate of the field.
- *@return bool. Function returns a boolean value.
+ *@return int. Function returns an array[x][y]'s value.
  */
 int is_ship(int x, int y)
 {

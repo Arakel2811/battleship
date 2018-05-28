@@ -10,11 +10,7 @@ int random(int, int);
 
 void create_sea();
 
-void add_horizontal(int, int, int);
-
 void append_ship(int, int, int, int);
-
-void add_vertical(int, int, int);
 
 bool check(int, int, int, int);
 
