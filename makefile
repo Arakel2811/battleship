@@ -1,13 +1,14 @@
 TARGET	:= war 
+HEADER  := $(wildcard src/*.h)
 SOURCE	:= $(wildcard src/*.cpp)
 OBJECT	:= $(patsubst src/%.cpp, obj/%.o, $(SOURCE))
 DIR_bin := $(addprefix bin/, $(TARGET))
-PROJECT_DIR := /home/student/Desktop/battleship
+PROJECT_DIR := $(shell pwd)
 INCLUDE_PATH := -I$(PROJECT_DIR)/src
 CC		:= g++
 
 
-$(TARGET): $(OBJECT)
+$(TARGET): $(OBJECT) $(HEADER)
 	@mkdir -p bin
 	@$(CC) $^ -o bin/$@
 
@@ -20,7 +21,7 @@ clean:
 	@echo " Cleaning data...."
 	@rm -rf bin
 	@rm -rf ./docs/doxygen
-	@rm -rf ./obj/*.o
+	@rm -rf obj
 	@echo " Data cleaned!!"
 
 .PHONY: doxygen

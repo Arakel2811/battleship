@@ -34,3 +34,4 @@ void verify_coordinate_format(int*, int*);
 
 void play();
 
+void delete_sea();

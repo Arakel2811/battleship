@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <string>
 
-const int size = 10;
+const unsigned int size = 10;
 enum {hor, vert};
 int** array = 0;
 
@@ -15,16 +15,16 @@ int** array = 0;
  *@return void. Function doesn't returns value.
  */
 void create_array()
-{
-  try {
-    array = new int* [size];
-    for(int i = 1 ; i <= size; ++i) {
-      array[i-1] = new int [size]; 
-    }
-  } catch (std::bad_alloc&) {
-    throw;
-  } catch (...) {
-    throw;
+{ 
+  array = new int* [size];
+  if(!array) {
+    throw std::bad_alloc();
+  }
+  for(int i = 1 ; i <= size; ++i) {
+    array[i-1] = new int [size]; 
+    if(!array[i - 1]) {
+    throw std::bad_alloc();
+  }
   }
 }
 
@@ -332,6 +332,21 @@ void verify_coordinate_format(int* ptr, int* err)
 }
 
 /**
+   *@brief Function deletes the sea
+   *@name Function "delete_sea()"
+   *@param array is a two dementional array.
+   *@return void. Function doesn't return a value.
+   */
+void delete_sea()
+{
+  assert(array);
+  for(int i = 0; i < size; ++i) {
+    delete [] *(array + i);
+  }
+  delete [] array;
+} 
+
+/**
  *@brief Function calls verify_coordinate_format() function, and returns if any ship was damaged or not.
  *@name Function "play"
  *@param Function doesn't have arguments.
@@ -363,5 +378,6 @@ void play()
     }
   }
   std::cout << "Game over" << std::endl;
+  delete_sea();
 }
 

@@ -16,20 +16,10 @@ int main()
     finall_sea();
     print();
     play();
-   } catch (const std::overflow_error& e) {
-    // this executes if f() throws std::overflow_error (same type rule)
-    std::cerr << "overflow_error" << std::endl;    
-  } catch (const std::runtime_error& e) {
-    // this executes if f() throws std::underflow_error (base class rule)
-    std::cerr << "runtime_error" << std::endl;
-  } catch (const std::exception& e) {
-    // this executes if f() throws std::logic_error (base class rule)
-    std::cerr << "exception" << std::endl;
-  } catch (std::bad_alloc& ba) {
-    std::cerr << "bad_alloc caught: " << ba.what() << std::endl;
-  } catch (...) {
-    // this executes if f() throws std::string or int or any other unrelated type
-    std::cout << " Oops something went wrong !!!" << std::endl;
-  }
+   } catch (std::bad_alloc& ba) {
+       std::cout << "The system can not allocate enough memory for your program ... " << std::endl;
+       std::cerr << "bad_alloc caught: " << ba.what() << std::endl;
+       return 123;
+     } 
   return 0;
 }
