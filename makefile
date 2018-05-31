@@ -1,6 +1,7 @@
 TARGET	:= war 
 HEADER  := $(wildcard src/*.h)
 SOURCE	:= $(wildcard src/*.cpp)
+DEPS     := $(patsubst src/%.cpp, deps/%.dep, $(SOURCE))
 OBJECT	:= $(patsubst src/%.cpp, obj/%.o, $(SOURCE))
 DIR_bin := $(addprefix bin/, $(TARGET))
 PROJECT_DIR := $(shell pwd)
@@ -16,6 +17,12 @@ obj/%.o: src/%.cpp
 	@mkdir -p obj
 	@$(CC) -c $^ $(INCLUDE_PATH) -o $@ 
 
+dep/%.dep : src/%.cpp
+	@mkdir -p ./deps
+	@$(CC) -MM $< -MT "$@ $(patsubst %.dep, %.o, $@)" -o $@ -I./src
+  
+	-include $(DEPS)
+
 .PHONY: clean
 clean: 
 	@echo " Cleaning data...."
@@ -29,3 +36,5 @@ doxygen:
 	@echo " Doxygen documentation making is in process."
 	@doxygen Doxyfile	
 	@echo " Doxygen is ready :D"
+
+

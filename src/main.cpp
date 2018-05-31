@@ -13,7 +13,7 @@ int main()
     create_array();
     create_sea();
     create_ships();
-    finall_sea();
+    final_sea();
     print();
     play();
    } catch (std::bad_alloc& ba) {
@@ -21,5 +21,5 @@ int main()
        std::cerr << "bad_alloc caught: " << ba.what() << std::endl;
        return 123;
      } 
-  return 0;
+   return 0;
 }
