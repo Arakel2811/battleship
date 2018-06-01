@@ -27,6 +27,8 @@ dep/%.dep : src/%.cpp
 clean: 
 	@echo " Cleaning data...."
 	@rm -rf bin
+	@rm -rf ./tests/*.o
+	@rm -rf test_results
 	@rm -rf ./docs/doxygen
 	@rm -rf obj
 	@echo " Data cleaned!!"
@@ -36,5 +38,9 @@ doxygen:
 	@echo " Doxygen documentation making is in process."
 	@doxygen Doxyfile	
 	@echo " Doxygen is ready :D"
+
+.PHONY: test
+test: 
+	@cd ./tests && $(MAKE)
 
 

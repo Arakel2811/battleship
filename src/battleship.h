@@ -26,6 +26,8 @@ void set_around(int, int, int, int);
 
 void create_ships();
 
+int** get_sea();
+
 void shoot(int, int);
 
 void verify_coordinate_format(int*, int*);

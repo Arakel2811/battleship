@@ -75,6 +75,17 @@ void create_sea()
 }
 
 /**
+ *@brief Function returns the matrix, this function is for testing. 
+ *@name Function "get_sea()"
+ *@param Function doesn't have arguments.
+ *@return int**. Function returns two dimentional array(sea).
+ */
+int** get_sea()
+{
+  return array;
+}
+
+/**
  *@brief Function sets a ship.
  *@name Function "append_ship()"
  *@param x is an integer number, the abscissa of the field.
